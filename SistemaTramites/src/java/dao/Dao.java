@@ -8,24 +8,10 @@ public class Dao {
 
     Connection cn;
 
-    public static Connection ConectarReporte() throws ClassNotFoundException {
-//        String url = "jdbc:sqlserver://192.168.2.40:1433;databaseName=Agricultura";
-        String url = "jdbc:sqlserver://192.168.8.161:1433;databaseName=TRAMITEDOC";
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection link = DriverManager.getConnection(url, "ivan", "ivansito");
-            return link;
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("error de conexion " + e + "error de conexion ");
-        }
-        return null;
-    }
-
     public void Conectar() throws Exception {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-//            cn = DriverManager.getConnection("jdbc:sqlserver://192.168.2.40:1433;databaseName=Agricultura;user=sa;password=Equipo04");
-            cn = DriverManager.getConnection("jdbc:sqlserver://localhost;databaseName=TRAMITEDOC;user=user;password=user");
+            cn = DriverManager.getConnection("jdbc:sqlserver://192.168.8.103:1433;databaseName=TRAMITEDOC;user=E01;password=Equipo01");
             if (cn != null) {
                 System.out.println("Conectado");
             }

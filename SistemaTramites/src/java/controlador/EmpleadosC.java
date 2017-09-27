@@ -79,9 +79,9 @@ public class EmpleadosC implements Serializable {
             if (empleados.getPssEmp().equals(pssw)) {
                 switch (empleados.getLevelEmp()) {
                     case "ADMINISTRADOR":
-                        contex.getExternalContext().redirect("/STDocs/faces/vistas/tablas/Tramites.xhtml");
+                        contex.getExternalContext().redirect("/SistemaTramites/faces/vistas/tablas/Tramites.xhtml");
                     case "USUARIO":
-                        contex.getExternalContext().redirect("/STDocs/faces/vistas/tablas/Tramites.xhtml");
+                        contex.getExternalContext().redirect("/SistemaTramites/faces/vistas/tablas/Tramites.xhtml");
                     default:
                         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(""));
                         return null;
