@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>TRAMITES</title>
+    </h:head>
+    <h:body>
+        <h:form id="frm">
+            <p:panelGrid id="pnlg" columns="2">
+                <p:outputLabel value="USUARIO"/>
+                <p:inputText value="#{EmpleadosC.user}"/>
+                <p:outputLabel value="CONTRASEÑA"/>
+                <p:inputText value="#{EmpleadosC.pssw}"/>
+                <p:commandButton value="Ingresar" action="#{EmpleadosC.ingresar()}" update="frm"/>
+            </p:panelGrid>
+        </h:form>
+        <br/>
+        <br/>
+        <br/>
+        <h:form>
+            <p:panelGrid columns="1">
+            <p:inputText />
+            <p:outputLabel value="Cod. Documento" /> 
+            <p:inputText value="#{busquedaDocC.busMod.dniUsu}"/>
+            <p:outputLabel value="Doc. Identidad(DNI)" /> 
+            <p:commandButton value="Buscar" action="#{busquedaDocC.busqueda()}" />
+            </p:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+

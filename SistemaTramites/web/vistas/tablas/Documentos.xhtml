@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>DOCUMENTOS</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./../Templates/#{EmpleadosC.empleados.template}">
+            <ui:define name="content">
+                <h:form>
+                    <p:panelGrid id="pnlg" columns="6">
+                        <p:outputLabel value="TIPO DE DOCUMENTO"/>
+                        <p:inputText value="#{DocumentosC.documentos.tipoDocs}"/>
+                    </p:panelGrid>
+
+                    <br/>
+                    <p:commandButton value="AGREGAR" actionListener="#{DocumentosC.addDocumentos()}" update="pnlg  tableDocumentos"/>
+                    <p:commandButton value="LISTAR" actionListener="#{DocumentosC.listarDocumentos()}" update="pnlg  tableDocumentos"/>
+                    <p:commandButton value="CANCELAR" actionListener="#{DocumentosC.clearDocumentos()}" update="pnlg tableDocumentos"/>
+
+                    <br/>
+                    <p:dataTable id="tableDocumentos" 
+                                 value="#{DocumentosC.lstDocumentos}" 
+                                 var="docs" 
+                                 paginator="true" 
+                                 rows="10">
+
+                        <p:column headerText="CÓDIGO">
+                            <h:outputText value="#{docs.codDocs}"/>
+                        </p:column>
+                        <p:column headerText="TIPO DE DOCUMENTO">
+                            <h:outputText value="#{docs.tipoDocs}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

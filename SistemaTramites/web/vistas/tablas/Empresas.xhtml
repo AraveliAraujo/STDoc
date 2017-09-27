@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>TRAMITES</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./../Templates/#{EmpleadosC.empleados.template}">
+            <ui:define name="content">
+                <h:form>
+                    <p:panelGrid id="pnlg" columns="6">
+                        <p:outputLabel value="NOMBRE"/>
+                        <p:inputText value="#{EmpresasC.empresas.nomEmpre}"/>
+                        <p:outputLabel value="RUC"/>
+                        <p:inputMask mask="99999999999" value="#{EmpresasC.empresas.rucEmpre}"/>
+                        <p:outputLabel value="DIRECCIÓN"/>
+                        <p:inputText value="#{EmpresasC.empresas.direcEmpre}"/>
+                        <p:outputLabel value="TELÉFONO"/>
+                        <p:inputMask mask="9999999" value="#{EmpresasC.empresas.telEmpre}"/>
+                        <p:outputLabel value="DEPARTAMENTO" for="CbxDpto"/>
+                        <p:selectOneMenu id="CbxDpto" value="#{ubigeoC.dpto}" required="true" requiredMessage="Seleccionar Departamento">
+                            <f:selectItem itemLabel="(Seleccione)" itemValue=""/>
+                            <f:selectItems value="#{ubigeoC.lstDpto}"/>
+                            <p:ajax event="change" listener="#{ubigeoC.listProv()}" update="CbxProv"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="PROVINCIA" for="CbxProv"/>
+                        <p:selectOneMenu id="CbxProv" value="#{ubigeoC.prov}" required="true" requiredMessage="Seleccionar Provincia">
+                            <f:selectItem itemLabel="(Seleccione)" itemValue=""/>
+                            <f:selectItems value="#{ubigeoC.lstProv}"/>
+                            <p:ajax event="change" listener="#{ubigeoC.listDist()}" update="CbxDist"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="DISTRITO" for="CbxDist"/>
+                        <p:selectOneMenu id="CbxDist" value="#{EmpresasC.empresas.codUbig}" required="true" requiredMessage="Seleccionar Departamento">
+                            <f:selectItem itemLabel="(Seleccione)" itemValue=""/>
+                            <f:selectItems value="#{ubigeoC.lstDist}" var="dist" 
+                                           itemLabel="#{dist.dist}" itemValue="#{dist.codUbig}"/>
+                        </p:selectOneMenu>
+
+                    </p:panelGrid>
+
+                    <br/>
+                    <p:commandButton value="AGREGAR" actionListener="#{EmpresasC.addEmpresas()}" update="pnlg  tableEmpresas"/>
+                    <p:commandButton value="LISTAR" actionListener="#{EmpresasC.listarEmpresas()}" update="pnlg  tableEmpresas"/>
+                    <p:commandButton value="CANCELAR" actionListener="#{EmpresasC.clearEmpresas()}" update="pnlg tableEmpresas"/>
+
+                    <br/>
+                    <p:dataTable id="tableEmpresas" 
+                                 value="#{EmpresasC.lstEmpresas}" 
+                                 var="empre" 
+                                 paginator="true" 
+                                 rows="10"
+                                 rowKey="#{empre.codEmpre}">
+                        <p:column headerText="CÓDIGO">
+                            <h:outputText value="#{empre.codEmpre}"/>
+                        </p:column>
+                        <p:column headerText="NOMBRE">
+                            <h:outputText value="#{empre.nomEmpre}"/>
+                        </p:column>
+                        <p:column headerText="RUC">
+                            <h:outputText value="#{empre.rucEmpre}"/>
+                        </p:column>
+                        <p:column headerText="DIRECCIÓN">
+                            <h:outputText value="#{empre.direcEmpre}"/>
+                        </p:column>
+                        <p:column headerText="TELÉFONO">
+                            <h:outputText value="#{empre.telEmpre}"/>
+                        </p:column>
+                        <p:column headerText="UBIGEO">
+                            <h:outputText value="#{empre.codUbig}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

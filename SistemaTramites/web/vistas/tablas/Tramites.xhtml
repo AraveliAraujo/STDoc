@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>TRAMITES</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./../Templates/#{EmpleadosC.empleados.template}">
+            <ui:define name="content">
+                <h:form>
+                    <p:panelGrid id="pnlg" columns="6">
+                        <p:outputLabel value="FECHA"/>
+                        <p:inputText value="#{TramitesC.tramites.fecIngreTram}" disabled="true"/>
+                        <p:outputLabel value="ESTADO"/>
+                        <p:inputText value="EN ESPERA" disabled="true"/>
+                        <p:outputLabel value="OBSERVACIÓN"/>
+                        <p:inputText value="#{TramitesC.tramites.obserTram}"/>
+                        <p:outputLabel value="RESPUESTA"/>
+                        <p:inputText value="#{TramitesC.tramites.rptaTram}"/>
+                        <p:outputLabel value="FOLIACIÓN"/>
+                        <p:inputText value="#{TramitesC.tramites.foliacion}"/>
+                        <p:outputLabel value="ASUNTO"/>
+                        <p:inputText value="#{TramitesC.tramites.asuntoTram}"/>
+
+                        <p:outputLabel value="USUARIO"/>
+                        <p:selectOneMenu id="Cbxuser" value="#{TramitesC.tramites.codUsu}">
+                            <f:selectItem itemLabel="(Seleccione)" itemValue=""/>
+                            <f:selectItems value="#{UsuariosC.lstUsuarios}" var="usuarios"
+                                           itemLabel="#{usuarios.nomUsu} #{usuarios.apeUsu}" itemValue="#{usuarios.codUsu}"/>
+                        </p:selectOneMenu>
+
+
+                        <p:outputLabel value="EMPRESAS"/>
+                        <p:selectOneMenu id="CbxEmpre" value="#{TramitesC.tramites.codEmpre}">
+                            <f:selectItem itemLabel="(Seleccione)" itemValue=""/>
+                            <f:selectItems value="#{EmpresasC.lstEmpresas}" var="empresas"
+                                           itemLabel="#{empresas.nomEmpre}" itemValue="#{empresas.codEmpre}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="ÁREA"/>
+                        <p:selectOneMenu id="cbxAreas" value="#{TramitesC.tramites.codA}">
+                            <f:selectItem itemLabel="(Seleccione)" itemValue=""/>
+                            <f:selectItems value="#{AreasC.lstAreas}" var="areas"
+                                           itemLabel="#{areas.nomA}" itemValue="#{areas.codA}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="DOCUMENTO"/>
+                        <p:selectOneMenu id="cbxDocs" value="#{TramitesC.tramites.codDocs}">
+                            <f:selectItem itemLabel="(Seleccione)" itemValue=""/>
+                            <f:selectItems value="#{DocumentosC.lstDocumentos}" var="docs"
+                                           itemLabel="#{docs.tipoDocs}" itemValue="#{docs.codDocs}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+
+                    <br/>
+                    <p:commandButton value="AGREGAR" actionListener="#{TramitesC.addTramites()}" update="pnlg  tableTramites"/>
+                    <p:commandButton value="LISTAR" actionListener="#{TramitesC.listTramites()}" update="pnlg  tableTramites"/>
+                    <p:commandButton value="CANCELAR" actionListener="#{TramitesC.clearTramites()}" update="pnlg tableTramites"/>
+
+                    <br/>
+                    <p:dataTable id="tableTramites" 
+                                 value="#{TramitesC.lstTramites}" 
+                                 var="tra" 
+                                 paginator="true" 
+                                 rows="10"
+                                 rowKey="#{tra.codEmpre}">
+
+                        <p:column style="width: 50px">
+                            <p:rowToggler />
+                        </p:column>
+                        <p:column headerText="CÓDIGO">
+                            <h:outputText value="#{tra.codTram}"/>
+                        </p:column>
+                        <p:column headerText="FECHA">
+                            <h:outputText value="#{tra.fecIngreTram}"/>
+                        </p:column>
+                        <p:column headerText="ESTADO">
+                            <h:outputText value="#{tra.estadTram}"/>
+                        </p:column>
+                        <p:column headerText="RESPUESTA">
+                            <h:outputText value="#{tra.rptaTram}"/>
+                        </p:column>
+                        <p:column headerText="ASUNTO">
+                            <h:outputText value="#{tra.asuntoTram}"/>
+                        </p:column>
+                        <p:rowExpansion>
+                            <p:panelGrid id="pnlgExps" columns="6">
+                                <p:outputLabel value="FOLIACIÓN: "/>
+                                <h:outputText value="#{tra.foliacion}"/>
+                                <p:outputLabel value="USUARIO: "/>
+                                <h:outputText value="#{tra.codUsu}"/>
+                                <p:outputLabel value="EMPRESA: "/>
+                                <h:outputText value="#{tra.codEmpre}"/>
+                                <p:outputLabel value="ÁREA: "/>
+                                <h:outputText value="#{tra.codA}"/>
+                                <p:outputLabel value="DOCUMENTO: "/>
+                                <h:outputText value="#{tra.codDocs}"/>
+                                <p:outputLabel value="OBSERVACIÓN: "/>
+                                <h:outputText value="#{tra.obserTram}"/>
+                            </p:panelGrid>
+                        </p:rowExpansion>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

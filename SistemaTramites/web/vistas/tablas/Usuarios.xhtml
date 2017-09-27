@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>USUARIOS</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./../Templates/#{EmpleadosC.empleados.template}">
+            <ui:define name="content">
+                <h:form>
+                    <p:panelGrid id="pnlg" columns="6">
+                        <p:outputLabel value="DNI"/>
+                        <p:inputMask mask="99999999" value="#{UsuariosC.usuarios.dniUsu}"/>
+                        <p:outputLabel value="NOMBRES"/>
+                        <p:inputText value="#{UsuariosC.usuarios.nomUsu}"/>
+                        <p:outputLabel value="APELLIDOS"/>
+                        <p:inputText value="#{UsuariosC.usuarios.apeUsu}"/>
+                        <p:outputLabel value="EMAIL"/>
+                        <p:inputText value="#{UsuariosC.usuarios.emailUsu}" type="email"/>
+                        <p:outputLabel value="CELULAR"/>
+                        <p:inputMask mask="999999999" value="#{UsuariosC.usuarios.celUsu}"/>
+                        <p:outputLabel value="DIRECCIÓN"/>
+                        <p:inputText value="#{UsuariosC.usuarios.direcUsu}"/>
+
+                        <p:outputLabel value="DEPARTAMENTO" for="CbxDpto"/>
+                        <p:selectOneMenu id="CbxDpto" value="#{ubigeoC.dpto}" required="true" requiredMessage="Seleccionar Departamento">
+                            <f:selectItem itemLabel="(Seleccione)" itemValue=""/>
+                            <f:selectItems value="#{ubigeoC.lstDpto}"/>
+                            <p:ajax event="change" listener="#{ubigeoC.listProv()}" update="CbxProv"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="PROVINCIA" for="CbxProv"/>
+                        <p:selectOneMenu id="CbxProv" value="#{ubigeoC.prov}" required="true" requiredMessage="Seleccionar Provincia">
+                            <f:selectItem itemLabel="(Seleccione)" itemValue=""/>
+                            <f:selectItems value="#{ubigeoC.lstProv}"/>
+                            <p:ajax event="change" listener="#{ubigeoC.listDist()}" update="CbxDist"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="DISTRITO" for="CbxDist"/>
+                        <p:selectOneMenu id="CbxDist" value="#{UsuariosC.usuarios.codUbig}" required="true" requiredMessage="Seleccionar Departamento">
+                            <f:selectItem itemLabel="(Seleccione)" itemValue=""/>
+                            <f:selectItems value="#{ubigeoC.lstDist}" var="dist" 
+                                           itemLabel="#{dist.dist}" itemValue="#{dist.codUbig}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+
+                    <br/>
+                    <p:commandButton value="AGREGAR" actionListener="#{UsuariosC.addUsuarios()}" update="pnlg  tableUsuarios"/>
+                    <p:commandButton value="LISTAR" actionListener="#{UsuariosC.listUsuarios()}" update="pnlg  tableUsuarios"/>
+                    <p:commandButton value="CANCELAR" actionListener="#{UsuariosC.clearUsuarios()}" update="pnlg tableUsuarios"/>
+
+                    <br/>
+                    <p:dataTable id="tableUsuarios" 
+                                 value="#{UsuariosC.lstUsuarios}" 
+                                 var="usu" 
+                                 paginator="true" 
+                                 rows="10">
+
+                        <p:column style="width: 50px">
+                            <p:rowToggler />
+                        </p:column>
+                        <p:column headerText="CÓDIGO">
+                            <h:outputText value="#{usu.codUsu}"/>
+                        </p:column>
+                        <p:column headerText="DNI">
+                            <h:outputText value="#{usu.dniUsu}"/>
+                        </p:column>
+                        <p:column headerText="NOMBRES">
+                            <h:outputText value="#{usu.nomUsu}"/>
+                        </p:column>
+                        <p:column headerText="APELLIDOS">
+                            <h:outputText value="#{usu.apeUsu}"/>
+                        </p:column>
+                        <p:column headerText="EMAIL">
+                            <h:outputText value="#{usu.emailUsu}"/>
+                        </p:column>
+                        <p:rowExpansion>
+                            <p:panelGrid id="pnlgExps" columns="6">
+                                <p:outputLabel value="CELULAR: "/>
+                                <h:outputText value="#{usu.celUsu}"/>
+                                <p:outputLabel value="DIRECCIÓN "/>
+                                <h:outputText value="#{usu.direcUsu}"/>
+                                <p:outputLabel value="UBIGEO "/>
+                                <h:outputText value="#{usu.codUbig}"/>
+                            </p:panelGrid>
+                        </p:rowExpansion>
+
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
