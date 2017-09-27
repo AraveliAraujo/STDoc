@@ -11,7 +11,7 @@ public class Dao {
     public void Conectar() throws Exception {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            cn = DriverManager.getConnection("jdbc:sqlserver://192.168.8.103:1433;databaseName=TRAMITEDOC;user=E01;password=Equipo01");
+            cn = DriverManager.getConnection("jdbc:sqlserver://127.0.0.1:1433;databaseName=TRAMITEDOC;user=sa;password=pc07");
             if (cn != null) {
                 System.out.println("Conectado");
             }

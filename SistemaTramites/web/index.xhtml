@@ -14,7 +14,7 @@
                 <p:outputLabel value="USUARIO"/>
                 <p:inputText value="#{EmpleadosC.user}"/>
                 <p:outputLabel value="CONTRASEÑA"/>
-                <p:inputText value="#{EmpleadosC.pssw}"/>
+                <p:inputText value="#{EmpleadosC.pssw}" type="password" />
                 <p:commandButton value="Ingresar" action="#{EmpleadosC.ingresar()}" update="frm"/>
             </p:panelGrid>
         </h:form>
