@@ -2,14 +2,14 @@ package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.EmpleadosM;
+
 public class EmpleadosD extends Dao {
 
     static EmpleadosM employe = new EmpleadosM();
-    
+
     public void addEmpleados(EmpleadosM empleados) throws Exception {
         try {
             this.Conectar();
@@ -32,33 +32,6 @@ public class EmpleadosD extends Dao {
         }
     }
 
-    public EmpleadosM login(String Empleados) throws Exception{
-        this.Conectar();
-        try {
-            ResultSet rs;
-            String sql = "Exec SP_UsuarioEmpl ?"; 
-            PreparedStatement ps = this.getCn().prepareStatement(sql);
-            ps.setString(1, Empleados);
-            rs = ps.executeQuery();
-            rs.next();
-            employe.setDniEmp(rs.getString("DniEmp"));
-            employe.setPssEmp(rs.getString("PssEmp"));
-            employe.setLevelEmp(rs.getString("LevelEmp"));
-            employe.setIdentidad(rs.getString("identidad"));
-            employe.setCodEmp(rs.getInt("CodEmp"));
-            switch (employe.getLevelEmp()){
-                case "ADMINISTRADOR":
-                    employe.setTemplate("TemplateAdmin.xhtml");
-                    break;
-                case "USUARIO":
-                employe.setTemplate("TemplateUser.xhtml");
-            }
-            return employe;
-        } catch (SQLException e) {
-            return employe;
-        }
-    }
-  
     public List<EmpleadosM> listarEmpleados() throws Exception {
         List<EmpleadosM> lista;
         ResultSet rs;

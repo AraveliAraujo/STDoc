@@ -7,8 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import modelo.EmpleadosM;
 
@@ -64,36 +62,6 @@ public class EmpleadosC implements Serializable {
             lstEmpleados = dao.listarEmpleados();
         } catch (Exception e) {
             throw e;
-        }
-    }
-
-    public String ingresar() {
-        FacesContext contex = FacesContext.getCurrentInstance();
-        try {
-            dao = new EmpleadosD();
-            empleados = dao.login(user);
-            if (empleados == null) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("El Usuario no existe"));
-                return null;
-            }
-            if (empleados.getPssEmp().equals(pssw)) {
-                switch (empleados.getLevelEmp()) {
-                    case "ADMINISTRADOR":
-                        contex.getExternalContext().redirect("/SistemaTramites/faces/vistas/tablas/Tramites.xhtml");
-                    case "USUARIO":
-                        contex.getExternalContext().redirect("/SistemaTramites/faces/vistas/tablas/Tramites.xhtml");
-                    default:
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(""));
-                        return null;
-                }
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Contraseña incorrecta"));
-                return null;
-            }
-        } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Contraseña incorrecta"));
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(String.valueOf(e)));
-            return null;
         }
     }
 

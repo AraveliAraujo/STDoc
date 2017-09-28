@@ -12,10 +12,10 @@
         <h:form id="frm">
             <p:panelGrid id="pnlg" columns="2">
                 <p:outputLabel value="USUARIO"/>
-                <p:inputText value="#{EmpleadosC.user}"/>
+                <p:inputText value="#{LogeoC.user}"/>
                 <p:outputLabel value="CONTRASEÑA"/>
-                <p:inputText value="#{EmpleadosC.pssw}" type="password" />
-                <p:commandButton value="Ingresar" action="#{EmpleadosC.ingresar()}" update="frm"/>
+                <p:inputText value="#{LogeoC.pssw}" type="password" />
+                <p:commandButton value="Ingresar" action="#{LogeoC.ingresar()}" update="frm"/>
             </p:panelGrid>
         </h:form>
         <br/>

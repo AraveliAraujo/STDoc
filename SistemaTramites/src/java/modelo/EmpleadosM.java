@@ -3,7 +3,7 @@ package modelo;
 public class EmpleadosM {
 
     private int CodEmp, CodUbig, CodA;
-    private String DniEmp, NomEmp, ApeEmp, EmailEmp, Template="Template.xhtml", CelEmp, DirecEmp, UserEmp, PssEmp, LevelEmp, identidad;
+    private String DniEmp, NomEmp, ApeEmp, EmailEmp, CelEmp, DirecEmp, UserEmp, PssEmp, LevelEmp;
 
     public int getCodEmp() {
         return CodEmp;
@@ -100,21 +100,4 @@ public class EmpleadosM {
     public void setLevelEmp(String LevelEmp) {
         this.LevelEmp = LevelEmp;
     }
-
-    public String getIdentidad() {
-        return identidad;
-    }
-
-    public void setIdentidad(String identidad) {
-        this.identidad = identidad;
-    }
-
-    public String getTemplate() {
-        return Template;
-    }
-
-    public void setTemplate(String Template) {
-        this.Template = Template;
-    }
-    
 }
